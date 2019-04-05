@@ -1,3 +1,15 @@
+
+
+打开luci报错 #165     地址：https://www.right.com.cn/forum/forum.php?mod=viewthread&tid=204802&page=116#pid2719709
+
+https://github.com/ywb94/openwrt-S-S R/issues/165
+
+安装好后打开界面出现/usr/lib/lua/luci/dispatcher.lua:487: Failed to execute function dispatcher target for entry '/admin/services/s-sr'. The called action terminated with an exception: /usr/lib/lua/luci/dispatcher.lua:487: Failed to execute arcombine dispatcher target for entry '/admin/services/s-sr/client'. The called action terminated with an exception: /usr/lib/lua/luci/model/cbi/s-sr/client.lua:26: attempt to call field 'arptable' (a nil value) stack traceback: [C]: in function 'assert' /usr/lib/lua/luci/dispatcher.lua:487: in function 'dispatch' /usr/lib/lua/luci/dispatcher.lua:121: in function </usr/lib/lua/luci/dispatcher.lua:120> 报错信息提示我们错误在/usr/lib/lua/luci/model/cbi/s-sr/client.lua:26。/usr/lib/lua/luci/model/cbi/s-sr/client.lua 的第26行代码。用vi或者vim打开该文件后找到26行，看到有arptable。于是将local arp_table = luci.sys.net.arptable() or {}修改为local arp_table = luci.ip.neighbors()。同理修改/usr/lib/lua/luci/model/cbi/s-sr/目录下的另一client-config.lua文件相同位置即可。之后配置好客户端就可以愉快的**
+
+依赖包可能没有安装完整  比如我的就少了这个  arptables  kmod-arptables
+
+
+
 ShadowsocksR-libev for OpenWrt
 ===
 
